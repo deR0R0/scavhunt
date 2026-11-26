@@ -5,6 +5,7 @@ export const inputTypeEnum = pgEnum("input_type", ["text"]) // more to come late
 
 export const challenges = pgTable("challenges", {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    category: text().notNull(),
     title: text().notNull(),
     description: text().notNull(),
     isDecreasing: boolean().notNull().default(false),

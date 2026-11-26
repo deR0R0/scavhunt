@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "db:migrate": "drizzle-kit generate && drizzle-kit migrate",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
