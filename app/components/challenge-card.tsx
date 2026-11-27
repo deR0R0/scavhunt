@@ -42,10 +42,14 @@ export default function ChallengeCard({ title, points, isDecreasing, description
             <span className="text-sm text-text-primary/50 mt-2 wrap-anywhere">{description}</span>
             <div className="bg-lighter-foreground w-full h-px my-5"/>
             <div className="flex flex-col mb-8">
-                <span className="text-text-primary/50">Solve History</span>
+                <span className="text-text-primary/50">
+                    {
+                        solveHistory.length === 0 ? "No Solves - you should be the first!" : solveHistory.length >= 4 ? "Fully Solved" : `${solveHistory.length} Solves`
+                    }
+                </span>
                 <div className="flex flex-col gap-3 mt-3">
                 {
-                    solveHistory.map(({classOf, points}, index) => (
+                    solveHistory.slice(0,3).map(({classOf, points}, index) => (
                         <div className="flex flex-row" key={classOf}>
                             <div className="flex w-10 h-5">
                                 <span className={`ml-auto ${index === 0 ? "text-[#FBBF24]" : (index === 1 ? "text-[#A3A3A3]" : index === 2 ? "text-[#CD7F32]" : "text-gray-500")}`}>
