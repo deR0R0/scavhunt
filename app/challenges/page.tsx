@@ -1,7 +1,10 @@
+import { headers } from "next/headers";
 import ChallengeCard from "../components/challenge-card";
 import ChallengeSection from "../components/challenge-section";
+import { auth } from "../lib/auth";
+import { redirect } from "next/navigation";
 
-export default function Challenges() {
+export default async function Challenges() {
     return (
         <div className="flex flex-col">
             <h1 className="text-5xl ml-4 mt-5">Have fun solving puzzles! :)</h1>
