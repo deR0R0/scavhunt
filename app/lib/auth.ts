@@ -3,6 +3,7 @@ import { betterAuth } from "better-auth";
 import { db } from "@/app/db/index"
 import { genericOAuth } from "better-auth/plugins";
 import { nextCookies } from "better-auth/next-js";
+import * as schema from "@/app/db/auth-schema"
 
 const ION_CLIENT_ID = process.env.ION_OAUTH_CLIENT_ID;
 const ION_CLIENT_SECRET = process.env.ION_OAUTH_CLIENT_SECRET;
@@ -16,7 +17,7 @@ if(ION_CLIENT_SECRET === undefined) {
 }
 
 export const auth = betterAuth({
-    database: drizzleAdapter(db, { provider: "pg" }),
+    database: drizzleAdapter(db, { provider: "pg", schema }),
     plugins: [
         genericOAuth({
             config: [{
