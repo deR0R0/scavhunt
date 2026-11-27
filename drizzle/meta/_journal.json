@@ -15,6 +15,13 @@
       "when": 1795736032979,
       "tag": "0001_tense_smiling_tiger",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795740673798,
+      "tag": "0002_short_thunderbolts",
+      "breakpoints": true
     }
   ]
 }

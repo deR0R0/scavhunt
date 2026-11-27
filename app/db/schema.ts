@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { boolean, integer, pgEnum, pgTable, text } from "drizzle-orm/pg-core";
+import { boolean, integer, jsonb, pgEnum, pgTable, text } from "drizzle-orm/pg-core";
 
 export const inputTypeEnum = pgEnum("input_type", ["text"]) // more to come later :)
 
@@ -9,7 +9,7 @@ export const challenges = pgTable("challenges", {
     title: text().notNull(),
     description: text().notNull(),
     isDecreasing: boolean().notNull().default(false),
-    solveHistory: text().array().notNull().default(sql`'{}'::text[]`), // text array of stuf.. so like ["2028", "2027", "2026"] etc.
+    solveHistory: jsonb().$type<{ classOf: string; points: number }[]>().notNull().default([]), // example: [{classOf: "2028", points: 500}, ...]
     inputType: inputTypeEnum().notNull().default("text")
 })
 
