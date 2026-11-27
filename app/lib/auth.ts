@@ -21,13 +21,28 @@ export const auth = betterAuth({
     plugins: [
         genericOAuth({
             config: [{
-                providerId: "something",
+                providerId: "ion",
                 clientId: ION_CLIENT_ID,
                 clientSecret: ION_CLIENT_SECRET,
-                authorizationUrl: "https://ion.tjhsst.edu/oauth/authorize",
-                tokenUrl: "https://ion.tjhsst.edu/oauth/token",
-                userInfoUrl: "https://ion.tjhsst.edu/api/profile"
-            }]
+                authorizationUrl: "https://ion.tjhsst.edu/oauth/authorize/",
+                tokenUrl: "https://ion.tjhsst.edu/oauth/token/",
+                scopes: ["read"],
+                getUserInfo: async (tokens) => {
+                    const res = await fetch("https://ion.tjhsst.edu/api/profile?format=json", {
+                        headers: { Authorization: `Bearer ${tokens.accessToken}` },
+                    });
+                    if (!res.ok) return null;
+                    const profile = await res.json();
+
+                    return {
+                        id: String(profile.ion_username),
+                        name: profile.display_name,
+                        grad_year: String(profile.graduation_year),
+                        email: `${profile.id}@ion.placeholder.invalid`, // store a fake email - we dont really need to store people's emails. if we need to later, it would be email: profile.tj_email
+                        emailVerified: false,
+                    };
+                },
+            }],
         }),
         nextCookies(),
     ]

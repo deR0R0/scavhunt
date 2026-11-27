@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const pages = {
-    "Challenges": "/",
+    "Challenges": "/challenges",
     "Scavdle": "/scavdle",
     "Leaderboard": "/leaderboard",
     "Profile": "/profile"
