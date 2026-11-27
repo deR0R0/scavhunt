@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronDown, Send, SendHorizonal, TrendingDown } from "lucide-react";
+import { Check, ChevronDown, Send, SendHorizonal, TrendingDown } from "lucide-react";
 import { useRef } from "react";
 
 /*
@@ -19,9 +19,10 @@ interface ChallengeCardProps {
     isDecreasing: boolean;
     description: string;
     solveHistory: SolveEntry[];
+    isSolved: boolean;
 }
 
-export default function ChallengeCard({ title, points, isDecreasing, description, solveHistory }: ChallengeCardProps) {
+export default function ChallengeCard({ title, points, isDecreasing, description, solveHistory, isSolved }: ChallengeCardProps) {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const submitSolution = () => {
@@ -29,7 +30,7 @@ export default function ChallengeCard({ title, points, isDecreasing, description
     }
 
     return (
-        <div className="@container w-full flex flex-col bg-foreground max-w-96 min-h-90 rounded-lg p-3 drop-shadow-[0px_0px_15px_var(--foreground-color)]">
+        <div className={`@container w-full flex flex-col ${!isSolved ? "bg-foreground" : "bg-lighter-foreground"} max-w-90 min-h-90 rounded-lg p-3 drop-shadow-[0px_0px_15px_var(${!isSolved ? "--foreground-color" : "--lighter-foreground-color"})]`}>
             <div className="challenge-card-header flex flex-row items-start justify-between gap-3">
                 <h2 className="min-w-0 text-[clamp(1.25rem,6.5cqi,1.875rem)] wrap-break-word">{title}</h2>
                 <div className="text-2xl bg-highlight drop-shadow-[0px_0px_5px_var(--highlight-color)] px-3 py-1 rounded-xl shrink-0 flex flex-row gap-2 items-center">
@@ -57,17 +58,28 @@ export default function ChallengeCard({ title, points, isDecreasing, description
                                 </span>
                             </div>
                             <span className="ml-5 text-lg">Class Of {classOf}</span>
-                            <span className="ml-auto bg-highlight px-2 py-1 rounded-lg drop-shadow-[0px_0px_5px_var(--highlight-color)]">{points}</span>
+                            <span className={`ml-auto ${!isSolved ? "bg-lighter-foreground" : "bg-foreground"} px-2 py-1 rounded-lg`}>{points}</span>
                         </div>
                     ))
                 }
                 </div>
             </div>
-            <div className="mt-auto mb-3 flex flex-row items-center gap-2">
-                <input ref={inputRef} className="w-full bg-lighter-foreground rounded-md h-8 outline-0 pl-2 placeholder-text-primary/20" placeholder="type ur answer here" type="text"/>
-                <button onClick={submitSolution} className="hover:shadow-[inset_0px_0px_10px_var(--color-highlight)] w-10 h-10 p-2 transition-shadow rounded-xl duration-300">
-                    <Send className="w-6 h-6"/>
-                </button>
+            <div className="mt-auto mb-2 flex flex-row items-center gap-2 h-8">
+                {
+                    !isSolved ? (
+                        <>
+                            <input ref={inputRef} className="w-full bg-lighter-foreground rounded-md h-8 outline-0 pl-2 placeholder-text-primary/20" placeholder="type ur answer here" type="text"/>
+                            <button onClick={submitSolution} className="hover:shadow-[inset_0px_0px_10px_var(--color-highlight)] w-10 h-10 p-2 transition-shadow rounded-xl duration-300">
+                                <Send className="w-6 h-6"/>
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <Check/>
+                            <span>Solved. Good work!</span>
+                        </>
+                    )
+                } 
             </div>
         </div>
     )

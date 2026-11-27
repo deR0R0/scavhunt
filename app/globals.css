@@ -3,6 +3,7 @@
 :root {
     --bg-color: #10002B;
     --foreground-color: #240046;
+    --lighter-foreground-color: #3C096C;
     --highlight-color: #7B2CBF;
 }
 
@@ -12,7 +13,7 @@
     --color-foreground: var(--foreground-color);
     --color-text-light: #D7D0D7;
     --color-text-primary: #DDD6FE;
-    --color-lighter-foreground: #3C096C;
+    --color-lighter-foreground: var(--lighter-foreground-color);
     --color-highlight: var(--highlight-color);
 }
 
